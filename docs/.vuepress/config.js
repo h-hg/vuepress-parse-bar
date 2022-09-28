@@ -9,6 +9,8 @@ const workspace = path.resolve(__dirname, '..')
 
 export default {
   title: 'VuePress-Parse-Bar',
+  base: '/vuepress-parse-bar/',
+  repo: 'h-hg/vuepress-parse-bar',
   theme: defaultTheme({
     navbar: parseBar(path.join(workspace, 'navbar.md'), '/', false),
     sidebar: {

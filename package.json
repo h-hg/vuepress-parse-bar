@@ -11,7 +11,8 @@
   ],
   "scripts": {
     "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:build": "vuepress build docs",
+    "docs:push": "npm run docs:build && bash scripts/gh-pages.sh"
   },
   "author": "h-hg",
   "license": "MIT",
