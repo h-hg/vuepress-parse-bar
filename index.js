@@ -46,7 +46,7 @@ export function parseBar(mdPath, rootPath='/', autoSetCollapsible=true, indent=2
       children: []
     }
     if(res.link) {
-      node.link = path.resolve(rootPath, res.link)
+      node.link = path.posix.resolve(rootPath, res.link)
       if(res.link.endsWith(path.sep)) {
         node.link += path.sep
       }
@@ -83,12 +83,13 @@ export function scanBarFile(workspace, rootPath, barFileName) {
   const helper = (physicalPath, logicalPath) => {
     for(let file of fs.readdirSync(physicalPath)) {
       const pPath = path.join(physicalPath, file),
-            lPath = path.join(logicalPath, file)
+            lPath = path.posix.join(logicalPath, file)
       if(fs.statSync(pPath).isDirectory()) {
         helper(pPath, lPath)
       } else if(file == barFileName) {
         // console.log(pPath, lPath)
-        ret[logicalPath] = parseBar(pPath, logicalPath)
+        console.log(logicalPath)
+        ret[logicalPath + '/'] = parseBar(pPath, logicalPath)
       }
     }
   }

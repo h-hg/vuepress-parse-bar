@@ -1,11 +1,10 @@
 import { defaultTheme } from 'vuepress'
 import path from 'node:path'
-import { URL } from 'url'
+import url from 'url'
 import {parseBar, scanBarFile} from 'vuepress-parse-bar'
 
-const __filename = new URL('', import.meta.url).pathname;
-const __dirname = new URL('.', import.meta.url).pathname;
-const workspace = path.resolve(__dirname, '..')
+const __filename = url.fileURLToPath(new url.URL(import.meta.url));
+const workspace = path.resolve(__filename, '..', '..');
 
 export default {
   title: 'VuePress-Parse-Bar',
