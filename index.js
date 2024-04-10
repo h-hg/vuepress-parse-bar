@@ -1,6 +1,5 @@
 import path from 'node:path'
 import fs from 'node:fs'
-import url from 'node:url'
 
 function parseLine(line) {
   let res = /^(\ *)- \[(.*)\]\((.*)\)/.exec(line)
@@ -47,9 +46,12 @@ export function parseMd(mdPath, rootPath='/', autoSetCollapsible=true, indent=2)
       items: []
     }
     if(res.link) {
-      node.link = url.resolve(rootPath, res.link)
+      node.link = path.posix.resolve(rootPath, res.link)
+      if(res.link.endsWith('/')) {
+        node.link += '/'
+      }
     } else if(autoSetCollapsible){
-      node.collapsible = true
+      node.collapsed = true
     }
     // process
     lastNodes[level - 1].items.push(node)
@@ -76,15 +78,15 @@ export function parseMd(mdPath, rootPath='/', autoSetCollapsible=true, indent=2)
   return dummyNode.items
 }
 
-export function scanMdFiles(workspace, rootPath, barFileName) {
+export function scanMdFiles(workspace, rootPath, mdFileName) {
   const ret = {} // logicalPath : content of physicalPath
   const helper = (physicalPath, logicalPath) => {
     for(let file of fs.readdirSync(physicalPath)) {
       const pPath = path.join(physicalPath, file),
-            lPath = logicalPath + '/' + file
+            lPath = path.posix.join(logicalPath, file)
       if(fs.statSync(pPath).isDirectory()) {
         helper(pPath, lPath)
-      } else if(file == barFileName) {
+      } else if(file == mdFileName) {
         // console.log(pPath, lPath)
         ret[logicalPath + '/'] = parseMd(pPath, logicalPath)
       }
