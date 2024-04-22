@@ -50,8 +50,6 @@ export function parseMd(mdPath, rootPath='/', autoSetCollapsible=true, indent=2)
       if(res.link.endsWith('/')) {
         node.link += '/'
       }
-    } else if(autoSetCollapsible){
-      node.collapsed = true
     }
     // process
     lastNodes[level - 1].items.push(node)
@@ -62,6 +60,8 @@ export function parseMd(mdPath, rootPath='/', autoSetCollapsible=true, indent=2)
       // remove the empty children
       if(lastNodes[level].items.length == 0) {
         delete lastNodes[level].items
+      } else if(autoSetCollapsible){
+        node.collapsed = true
       }
       // update the lastNodes
       lastNodes[level] = node
@@ -73,6 +73,8 @@ export function parseMd(mdPath, rootPath='/', autoSetCollapsible=true, indent=2)
     const node = lastNodes[i]
     if(node.items.length == 0) {
       delete node.items
+    } else if(autoSetCollapsible){
+      node.collapsed = true
     }
   }
   return dummyNode.items
