@@ -46,6 +46,7 @@ export function parseMd(mdPath, rootPath='/', autoSetCollapsible=true, indent=2)
       items: []
     }
     if(res.link) {
+      res.link = res.link.replace('\\', '/') // preprocess
       node.link = path.posix.resolve(rootPath, res.link)
       if(res.link.endsWith('/')) {
         node.link += '/'
