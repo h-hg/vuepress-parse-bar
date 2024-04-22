@@ -1,4 +1,6 @@
-import { defaultTheme } from 'vuepress'
+import { viteBundler } from '@vuepress/bundler-vite'
+import { defaultTheme } from '@vuepress/theme-default'
+import { defineUserConfig } from 'vuepress'
 import path from 'node:path'
 import url from 'url'
 import {parseBar, scanBarFile} from 'vuepress-parse-bar'
@@ -6,7 +8,8 @@ import {parseBar, scanBarFile} from 'vuepress-parse-bar'
 const __filename = url.fileURLToPath(new url.URL(import.meta.url));
 const workspace = path.resolve(__filename, '..', '..');
 
-export default {
+export default defineUserConfig({
+  bundler: viteBundler(),
   title: 'VuePress-Parse-Bar',
   base: '/vuepress-parse-bar/',
   repo: 'h-hg/vuepress-parse-bar',
@@ -20,4 +23,4 @@ export default {
     // and it will scan all the sidebar.md automatically
     // sidebar: scanBarFile(workspace, '/', 'sidebar.md')
   }),
-}
+})

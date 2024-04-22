@@ -46,9 +46,10 @@ export function parseBar(mdPath, rootPath='/', autoSetCollapsible=true, indent=2
       children: []
     }
     if(res.link) {
+      res.link = res.link.replace('\\', '/') // preprocess
       node.link = path.posix.resolve(rootPath, res.link)
-      if(res.link.endsWith(path.sep)) {
-        node.link += path.sep
+      if(res.link.endsWith('/')) {
+        node.link += '/'
       }
     }
     // process
