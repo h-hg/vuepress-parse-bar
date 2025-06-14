@@ -1,6 +1,6 @@
 {
   "name": "vitepress-parse-bar",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A simple plugin for vitess to generate sidebar or navbar.",
   "repository": "https://github.com/h-hg/vuepress-parse-bar/tree/vitepress-parse-bar",
   "homepage": "https://h-hg.github.io/vuepress-parse-bar",

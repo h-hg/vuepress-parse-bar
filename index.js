@@ -50,10 +50,15 @@ export function parseMd(mdPath, rootPath = '/', autoSetCollapsible = true, inden
       items: []
     }
     if (res.link) {
-      res.link = res.link.replace('\\', '/') // preprocess
-      node.link = path.posix.resolve(rootPath, res.link)
-      if (res.link.endsWith('/') && node.link !== '/') {
-        node.link += '/'
+      // external url
+      if (res.link.indexOf("://") !== -1) {
+        node.link = res.link
+      } else {
+        res.link = res.link.replace('\\', '/') // preprocess
+        node.link = path.posix.resolve(rootPath, res.link)
+        if (res.link.endsWith('/') && node.link !== '/') {
+          node.link += '/'
+        }
       }
     }
     // process
