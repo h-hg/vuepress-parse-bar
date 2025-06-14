@@ -50,10 +50,14 @@ export function parseBar(mdPath, rootPath = '/', autoSetCollapsible = true, inde
       children: []
     }
     if (res.link) {
-      res.link = res.link.replace('\\', '/') // preprocess
-      node.link = path.posix.resolve(rootPath, res.link)
-      if (res.link.endsWith('/') && node.link !== '/') {
-        node.link += '/'
+      if (res.link.indexOf("://") !== -1) {
+        node.link = res.link
+      } else {
+        res.link = res.link.replace('\\', '/') // preprocess
+        node.link = path.posix.resolve(rootPath, res.link)
+        if (res.link.endsWith('/') && node.link !== '/') {
+          node.link += '/'
+        }
       }
     }
     // process

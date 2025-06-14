@@ -1,6 +1,6 @@
 {
   "name": "vuepress-parse-bar",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A simple plugin for vuepress to generate sidebar or navbar.",
   "repository": "https://github.com/h-hg/vuepress-parse-bar",
   "homepage": "https://h-hg.github.io/vuepress-parse-bar",
