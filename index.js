@@ -21,7 +21,7 @@ function parseLine(line) {
 }
 // mdPath: the path of markdown file
 // rootPath: 
-export function parseMd(mdPath, rootPath = '/', autoSetCollapsible = true, indent = 2) {
+export function parseMd(mdPath, rootPath = '/', autoSetCollapsible = false, indent = 2) {
   const lines = fs.readFileSync(mdPath, { encoding: 'utf8' }).split('\n')
   const dummyNode = {
     items: []
@@ -72,6 +72,8 @@ export function parseMd(mdPath, rootPath = '/', autoSetCollapsible = true, inden
         delete lastNodes[level].items
       } else if (autoSetCollapsible) {
         node.collapsed = true
+      } else {
+        node.collapsed = false
       }
       // update the lastNodes
       lastNodes[level] = node
@@ -85,6 +87,8 @@ export function parseMd(mdPath, rootPath = '/', autoSetCollapsible = true, inden
       delete node.items
     } else if (autoSetCollapsible) {
       node.collapsed = true
+    } else {
+      node.collapsed = false
     }
   }
   return dummyNode.items
